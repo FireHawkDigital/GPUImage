@@ -13,7 +13,7 @@
 @property (nonatomic, assign, getter=isAvailable) BOOL available;
 @property (nonatomic, assign) NSUInteger index;
 #if OS_OBJECT_HAVE_OBJC_SUPPORT == 1
-@property (nonatomic, strong) dispatch_queue_t dispatchQueue;
+@property (nonatomic) dispatch_queue_t dispatchQueue;
 #else
 @property (nonatomic, assign) dispatch_queue_t dispatchQueue;
 #endif
