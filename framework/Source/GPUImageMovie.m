@@ -2,7 +2,7 @@
 #import "GPUImageMovieWriter.h"
 #import "GPUImageFilter.h"
 #import "GPUImageColorConversion.h"
-
+#import "GPUImageDispatchQueueManager.h"
 
 @interface GPUImageMovie () <AVPlayerItemOutputPullDelegate>
 {
@@ -30,6 +30,8 @@
     BOOL isFullYUVRange;
 
     int imageBufferWidth, imageBufferHeight;
+    
+    dispatch_queue_t movieReadingQueue;
 }
 
 - (void)processAsset;
@@ -284,31 +286,40 @@
     }
     else
     {
-        while (reader.status == AVAssetReaderStatusReading && (!_shouldRepeat || keepLooping))
-        {
-                [weakSelf readNextVideoFrameFromOutput:readerVideoTrackOutput];
-
-            if ( (readerAudioTrackOutput) && (!audioEncodingIsFinished) )
+        
+        if (!movieReadingQueue) {
+            movieReadingQueue = [GPUImageSharedDispatchQueueManager dequeueDispatchQueue];
+        }
+        
+        dispatch_async(movieReadingQueue, ^{
+            while (reader.status == AVAssetReaderStatusReading && (!_shouldRepeat || keepLooping) &&  movieReadingQueue != nil)
             {
-                    [weakSelf readNextAudioSampleFromOutput:readerAudioTrackOutput];
-            }
-
-        }
-
-        if (reader.status == AVAssetReaderStatusCompleted) {
+                [weakSelf readNextVideoFrameFromOutput:readerVideoTrackOutput];
                 
-            [reader cancelReading];
-
-            if (keepLooping) {
-                reader = nil;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self startProcessing];
-                });
-            } else {
-                [weakSelf endProcessing];
+                if ( (readerAudioTrackOutput) && (!audioEncodingIsFinished) )
+                {
+                    [weakSelf readNextAudioSampleFromOutput:readerAudioTrackOutput];
+                }
+                
             }
-
-        }
+            
+            if (reader.status == AVAssetReaderStatusCompleted) {
+                
+                [reader cancelReading];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (keepLooping) {
+                        reader = nil;
+                        [weakSelf startProcessing];
+                        if ([weakSelf.delegate respondsToSelector:@selector(didCompletePlayingMovie)]) {
+                            [weakSelf.delegate didCompletePlayingMovie];
+                        }
+                    } else {
+                        [weakSelf endProcessing];
+                    }
+                });
+            }
+        });
     }
 }
 
@@ -812,6 +823,11 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
         [self.delegate didCompletePlayingMovie];
     }
     self.delegate = nil;
+    
+    if (movieReadingQueue) {
+        [GPUImageSharedDispatchQueueManager releaseDispatchQueue:movieReadingQueue];
+        movieReadingQueue = nil;
+    }
 }
 
 - (void)cancelProcessing

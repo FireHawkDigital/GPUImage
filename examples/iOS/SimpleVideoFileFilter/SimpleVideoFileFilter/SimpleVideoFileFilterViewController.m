@@ -25,6 +25,8 @@
     
     movieFile = [[GPUImageMovie alloc] initWithURL:sampleURL];
     movieFile.runBenchmark = YES;
+    movieFile.shouldRepeat = YES;
+    
     movieFile.playAtActualSpeed = NO;
     filter = [[GPUImagePixellateFilter alloc] init];
 //    filter = [[GPUImageUnsharpMaskFilter alloc] init];
