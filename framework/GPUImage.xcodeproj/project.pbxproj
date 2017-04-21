@@ -715,6 +715,17 @@
 		D30ACF231BAFE3DD00E9759C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30ACF221BAFE3DD00E9759C /* AssetsLibrary.framework */; };
 		D443237A17C81C0C00204484 /* GPUImageMovieComposition.h in Headers */ = {isa = PBXBuildFile; fileRef = D443237817C81C0C00204484 /* GPUImageMovieComposition.h */; };
 		D443237B17C81C0C00204484 /* GPUImageMovieComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = D443237917C81C0C00204484 /* GPUImageMovieComposition.m */; };
+		F3EBDA2A1EA99A7A00DD5518 /* GPUImageMirrorFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EBDA281EA99A7A00DD5518 /* GPUImageMirrorFilter.h */; };
+		F3EBDA2B1EA99A7A00DD5518 /* GPUImageMirrorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EBDA291EA99A7A00DD5518 /* GPUImageMirrorFilter.m */; };
+		F3EBDA2E1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EBDA2C1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.h */; };
+		F3EBDA2F1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EBDA2D1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.m */; };
+		F3EBDA371EA99EF200DD5518 /* GPUImageMirrorFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EBDA291EA99A7A00DD5518 /* GPUImageMirrorFilter.m */; };
+		F3EBDA381EA99EF500DD5518 /* GPUImageKoleidoscopeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = F3EBDA2D1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.m */; };
+		F3EBDA391EA99F0000DD5518 /* GPUImageKoleidoscopeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EBDA2C1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3EBDA3A1EA99F0300DD5518 /* GPUImageMirrorFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EBDA281EA99A7A00DD5518 /* GPUImageMirrorFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3EBDA3C1EA99F8100DD5518 /* GPUImage.h in Headers */ = {isa = PBXBuildFile; fileRef = BC245DBF14DDBCF5009FE7EB /* GPUImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3EBDA3E1EA99FBA00DD5518 /* GPUImageHistogramEqualizationFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = A4741D4E19A91F87005EE1A4 /* GPUImageHistogramEqualizationFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F3EBDA3F1EA99FC600DD5518 /* GPUImageHistogramEqualizationFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = A4741D4F19A91F87005EE1A4 /* GPUImageHistogramEqualizationFilter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1073,6 +1084,10 @@
 		D30ACF221BAFE3DD00E9759C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D443237817C81C0C00204484 /* GPUImageMovieComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUImageMovieComposition.h; path = Source/GPUImageMovieComposition.h; sourceTree = SOURCE_ROOT; };
 		D443237917C81C0C00204484 /* GPUImageMovieComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPUImageMovieComposition.m; path = Source/GPUImageMovieComposition.m; sourceTree = SOURCE_ROOT; };
+		F3EBDA281EA99A7A00DD5518 /* GPUImageMirrorFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUImageMirrorFilter.h; path = Source/GPUImageMirrorFilter.h; sourceTree = SOURCE_ROOT; };
+		F3EBDA291EA99A7A00DD5518 /* GPUImageMirrorFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPUImageMirrorFilter.m; path = Source/GPUImageMirrorFilter.m; sourceTree = SOURCE_ROOT; };
+		F3EBDA2C1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPUImageKoleidoscopeFilter.h; path = Source/GPUImageKoleidoscopeFilter.h; sourceTree = SOURCE_ROOT; };
+		F3EBDA2D1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPUImageKoleidoscopeFilter.m; path = Source/GPUImageKoleidoscopeFilter.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1258,6 +1273,10 @@
 		BC1B715F14F4B06600ACA2AB /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				F3EBDA2C1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.h */,
+				F3EBDA2D1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.m */,
+				F3EBDA281EA99A7A00DD5518 /* GPUImageMirrorFilter.h */,
+				F3EBDA291EA99A7A00DD5518 /* GPUImageMirrorFilter.m */,
 				BC27A3C915654F5A004F2D45 /* GPUImagePerlinNoiseFilter.h */,
 				BC27A3CA15654F5A004F2D45 /* GPUImagePerlinNoiseFilter.m */,
 				BCB5DE0B14E87F32000AF3C2 /* GPUImagePixellateFilter.h */,
@@ -1572,6 +1591,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3EBDA3A1EA99F0300DD5518 /* GPUImageMirrorFilter.h in Headers */,
 				BCD81FD919440A97007133DB /* GPUImageFramework.h in Headers */,
 				BCD81E8A194403FE007133DB /* GLProgram.h in Headers */,
 				BCD81E8B194403FE007133DB /* GPUImageContext.h in Headers */,
@@ -1730,6 +1750,8 @@
 				BCD81F24194404F6007133DB /* GPUImageKuwaharaRadius3Filter.h in Headers */,
 				BCD81F25194404F7007133DB /* GPUImageVignetteFilter.h in Headers */,
 				BCD81F26194404F7007133DB /* GPUImageJFAVoronoiFilter.h in Headers */,
+				F3EBDA3E1EA99FBA00DD5518 /* GPUImageHistogramEqualizationFilter.h in Headers */,
+				F3EBDA3C1EA99F8100DD5518 /* GPUImage.h in Headers */,
 				BCD81F27194404F7007133DB /* GPUImageMosaicFilter.h in Headers */,
 				BCD81F28194404F7007133DB /* GPUImageVoronoiConsumerFilter.h in Headers */,
 				BCAA73BE1C18E42D00BC2D31 /* GPUImageFourInputFilter.h in Headers */,
@@ -1741,6 +1763,7 @@
 				79F8FD171C8B2AA00095AB3E /* GPUImageSolarizeFilter.h in Headers */,
 				BC3AA4B21C11104B003B7561 /* GPUImageColourFASTFeatureDetector.h in Headers */,
 				BC3AA4B31C11104E003B7561 /* GPUImageColourFASTSamplingOperation.h in Headers */,
+				F3EBDA391EA99F0000DD5518 /* GPUImageKoleidoscopeFilter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1836,6 +1859,7 @@
 				BCAD0981154F7B2800278521 /* GPUImageHarrisCornerDetectionFilter.h in Headers */,
 				BCAD0985154F931C00278521 /* GPUImageAlphaBlendFilter.h in Headers */,
 				BCAD099F15506F6F00278521 /* GPUImageNonMaximumSuppressionFilter.h in Headers */,
+				F3EBDA2E1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.h in Headers */,
 				4686952F155AACAC0060BA43 /* GPUImageSourceOverBlendFilter.h in Headers */,
 				BC114898155AF65400F107AF /* GPUImageTwoInputFilter.h in Headers */,
 				BEBE83B5155C092A00EEF8C3 /* GPUImageRGBFilter.h in Headers */,
@@ -1908,6 +1932,7 @@
 				84FFC80B1936408F00994258 /* GPUImagePicture+TextureSubimage.h in Headers */,
 				B80171FE16312800001C8D16 /* GPUImageSaturationBlendFilter.h in Headers */,
 				B801722F16313151001C8D16 /* GPUImageLuminosityBlendFilter.h in Headers */,
+				F3EBDA2A1EA99A7A00DD5518 /* GPUImageMirrorFilter.h in Headers */,
 				BC185E7A16B866AD00EA01AD /* GPUImageLinearBurnBlendFilter.h in Headers */,
 				BC185E7E16B866CE00EA01AD /* GPUImageGaussianBlurPositionFilter.h in Headers */,
 				BC185E8216B866F000EA01AD /* GPUImagePixellatePositionFilter.h in Headers */,
@@ -1968,7 +1993,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Brad Larson";
 				TargetAttributes = {
 					BCE209E41943F20C002FEED8 = {
@@ -2026,6 +2051,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3EBDA381EA99EF500DD5518 /* GPUImageKoleidoscopeFilter.m in Sources */,
+				F3EBDA371EA99EF200DD5518 /* GPUImageMirrorFilter.m in Sources */,
 				BC57608019441E610096FFA5 /* GPUImageContext.m in Sources */,
 				BCD81F2D19440604007133DB /* GLProgram.m in Sources */,
 				BCD81F2F19440604007133DB /* GPUImageFramebuffer.m in Sources */,
@@ -2070,6 +2097,7 @@
 				BCD81F5519440604007133DB /* GPUImageAdaptiveThresholdFilter.m in Sources */,
 				BCD81F5619440604007133DB /* GPUImageAverageLuminanceThresholdFilter.m in Sources */,
 				BCD81F5719440604007133DB /* GPUImageHistogramFilter.m in Sources */,
+				F3EBDA3F1EA99FC600DD5518 /* GPUImageHistogramEqualizationFilter.m in Sources */,
 				BCD81F5819440604007133DB /* GPUImageHistogramGenerator.m in Sources */,
 				BCD81F5919440604007133DB /* GPUImageToneCurveFilter.m in Sources */,
 				BCD81F5A19440604007133DB /* GPUImageHighlightShadowFilter.m in Sources */,
@@ -2214,6 +2242,7 @@
 				BC982B5614F07F790001FF6F /* GPUImageSaturationFilter.m in Sources */,
 				BC982B6814F092EF0001FF6F /* GPUImageContrastFilter.m in Sources */,
 				BCAA73BD1C18E42400BC2D31 /* GPUImageFourInputFilter.m in Sources */,
+				F3EBDA2F1EA99AB900DD5518 /* GPUImageKoleidoscopeFilter.m in Sources */,
 				BC982B7A14F098CC0001FF6F /* GPUImageBrightnessFilter.m in Sources */,
 				BC982B7F14F09F980001FF6F /* GPUImageGammaFilter.m in Sources */,
 				BC982B9A14F0B34E0001FF6F /* GPUImageSobelEdgeDetectionFilter.m in Sources */,
@@ -2318,6 +2347,7 @@
 				BCBCE99A1595021B00E0ED33 /* GPUImageMonochromeFilter.m in Sources */,
 				BCBCE9D6159944AC00E0ED33 /* GPUImageBuffer.m in Sources */,
 				BCF6B41215A7849F00FC6F58 /* GPUImageOpacityFilter.m in Sources */,
+				F3EBDA2B1EA99A7A00DD5518 /* GPUImageMirrorFilter.m in Sources */,
 				BCC46E5F15B9EFE8005519B9 /* GPUImageHighlightShadowFilter.m in Sources */,
 				BCC46E6415BA095F005519B9 /* GPUImageFalseColorFilter.m in Sources */,
 				C2EDA90715BB136D007CBA0F /* GPUImageHueFilter.m in Sources */,
@@ -2401,7 +2431,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2436,7 +2466,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2470,7 +2500,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2494,7 +2526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
@@ -2512,7 +2544,9 @@
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
@@ -2528,7 +2562,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				SYMROOT = "$(PROJECT_DIR)/../build";

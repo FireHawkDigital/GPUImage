@@ -2,21 +2,22 @@ import Foundation
 import GPUImage
 
 enum FilterSliderSetting {
-    case Disabled
-    case Enabled(minimumValue:Float, maximumValue:Float, initialValue:Float)
+    case disabled
+    case enabled(minimumValue:Float, maximumValue:Float, initialValue:Float)
 }
 
 #if os(iOS)
-typealias FilterSetupFunction = (camera:GPUImageVideoCamera, outputView:GPUImageView) -> (filter:GPUImageOutput, secondOutput:GPUImageOutput?)
+typealias FilterSetupFunction = (_ camera:GPUImageVideoCamera, _ outputView:GPUImageView) -> (filter:GPUImageOutput, secondOutput:GPUImageOutput?)
 #else
-typealias FilterSetupFunction = (camera:GPUImageAVCamera, outputView:GPUImageView) -> (filter:GPUImageOutput, secondOutput:GPUImageOutput?)
+typealias FilterSetupFunction = (_ camera:GPUImageAVCamera, _ outputView:GPUImageView) -> (filter:GPUImageOutput, secondOutput:GPUImageOutput?)
 #endif
 
 enum FilterOperationType {
-    case SingleInput
-    case Blend
-    case Custom(filterSetupFunction:FilterSetupFunction)
+    case singleInput
+    case blend
+    case custom(filterSetupFunction:FilterSetupFunction)
 }
+
 
 protocol FilterOperationInterface {
     var filter: GPUImageOutput { get }
@@ -25,26 +26,26 @@ protocol FilterOperationInterface {
     var sliderConfiguration: FilterSliderSetting  { get }
     var filterOperationType: FilterOperationType  { get }
 
-    func configureCustomFilter(input:(filter:GPUImageOutput, secondInput:GPUImageOutput?))
-    func updateBasedOnSliderValue(sliderValue:CGFloat)
+    func configureCustomFilter(_ input:(filter:GPUImageOutput, secondInput:GPUImageOutput?))
+    func updateBasedOnSliderValue(_ sliderValue:CGFloat)
 }
 
-class FilterOperation<FilterClass: GPUImageOutput where FilterClass: GPUImageInput>: FilterOperationInterface {
+class FilterOperation<FilterClass: GPUImageOutput>: FilterOperationInterface where FilterClass: GPUImageInput {
     var internalFilter: FilterClass?
     var secondInput: GPUImageOutput?
     let listName: String
     let titleName: String
     let sliderConfiguration: FilterSliderSetting
     let filterOperationType: FilterOperationType
-    let sliderUpdateCallback: ((filter:FilterClass, sliderValue:CGFloat) -> ())?
-    init(listName: String, titleName: String, sliderConfiguration: FilterSliderSetting, sliderUpdateCallback:((filter:FilterClass, sliderValue:CGFloat) -> ())?, filterOperationType: FilterOperationType) {
+    let sliderUpdateCallback: ((_ filter:FilterClass, _ sliderValue:CGFloat) -> ())?
+    init(listName: String, titleName: String, sliderConfiguration: FilterSliderSetting, sliderUpdateCallback:((_ filter:FilterClass, _ sliderValue:CGFloat) -> ())?, filterOperationType: FilterOperationType) {
         self.listName = listName
         self.titleName = titleName
         self.sliderConfiguration = sliderConfiguration
         self.filterOperationType = filterOperationType
         self.sliderUpdateCallback = sliderUpdateCallback
         switch (filterOperationType) {
-            case .Custom:
+            case .custom:
                 break
             default:
                 self.internalFilter = FilterClass()
@@ -55,15 +56,15 @@ class FilterOperation<FilterClass: GPUImageOutput where FilterClass: GPUImageInp
         return internalFilter!
     }
 
-    func configureCustomFilter(input:(filter:GPUImageOutput, secondInput:GPUImageOutput?)) {
+    func configureCustomFilter(_ input:(filter:GPUImageOutput, secondInput:GPUImageOutput?)) {
         self.internalFilter = (input.filter as! FilterClass)
         self.secondInput = input.secondInput
     }
 
-    func updateBasedOnSliderValue(sliderValue:CGFloat) {
+    func updateBasedOnSliderValue(_ sliderValue:CGFloat) {
         if let updateFunction = sliderUpdateCallback
         {
-            updateFunction(filter:internalFilter!, sliderValue:sliderValue)
+            updateFunction(internalFilter!, sliderValue)
         }
     }
 }

@@ -9,88 +9,106 @@ import OpenGL
 #endif
     
 let filterOperations: Array<FilterOperationInterface> = [
+    FilterOperation <GPUImageMirrorFilter>(
+        listName:"Mirror",
+        titleName:"Mirror",
+        sliderConfiguration:.enabled(minimumValue:2.0, maximumValue:4.0, initialValue:2.0),
+        sliderUpdateCallback: {(filter, sliderValue) in
+            filter.sides = sliderValue
+    },
+        filterOperationType:.singleInput
+    ),
+    FilterOperation <GPUImageKoleidoscopeFilter>(
+        listName:"Koleidoscope",
+        titleName:"Koleidoscope",
+        sliderConfiguration:.enabled(minimumValue:2.0, maximumValue:10.0, initialValue:2.0),
+        sliderUpdateCallback: {(filter, sliderValue) in
+            filter.sides = sliderValue
+    },
+        filterOperationType:.singleInput
+    ),
     FilterOperation <GPUImageSaturationFilter>(
         listName:"Saturation",
         titleName:"Saturation",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.saturation = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageContrastFilter>(
         listName:"Contrast",
         titleName:"Contrast",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:4.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:4.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.contrast = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageBrightnessFilter>(
         listName:"Brightness",
         titleName:"Brightness",
-        sliderConfiguration:.Enabled(minimumValue:-1.0, maximumValue:1.0, initialValue:0.0),
+        sliderConfiguration:.enabled(minimumValue:-1.0, maximumValue:1.0, initialValue:0.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.brightness = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageLevelsFilter>(
         listName:"Levels",
         titleName:"Levels",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.setRedMin(sliderValue, gamma:1.0, max:1.0, minOut:0.0, maxOut:1.0)
             filter.setGreenMin(sliderValue, gamma:1.0, max:1.0, minOut:0.0, maxOut:1.0)
             filter.setBlueMin(sliderValue, gamma:1.0, max:1.0, minOut:0.0, maxOut:1.0)
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageExposureFilter>(
         listName:"Exposure",
         titleName:"Exposure",
-        sliderConfiguration:.Enabled(minimumValue:-4.0, maximumValue:4.0, initialValue:0.0),
+        sliderConfiguration:.enabled(minimumValue:-4.0, maximumValue:4.0, initialValue:0.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.exposure = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageRGBFilter>(
         listName:"RGB",
         titleName:"RGB",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.green = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageHueFilter>(
         listName:"Hue",
         titleName:"Hue",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:360.0, initialValue:90.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:360.0, initialValue:90.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.hue = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageWhiteBalanceFilter>(
         listName:"White balance",
         titleName:"White Balance",
-        sliderConfiguration:.Enabled(minimumValue:2500.0, maximumValue:7500.0, initialValue:5000.0),
+        sliderConfiguration:.enabled(minimumValue:2500.0, maximumValue:7500.0, initialValue:5000.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.temperature = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageMonochromeFilter>(
         listName:"Monochrome",
         titleName:"Monochrome",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.intensity = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageMonochromeFilter()
             camera.addTarget(filter)
             filter.addTarget(outputView)
@@ -101,41 +119,41 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageFalseColorFilter>(
         listName:"False color",
         titleName:"False Color",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageSharpenFilter>(
         listName:"Sharpen",
         titleName:"Sharpen",
-        sliderConfiguration:.Enabled(minimumValue:-1.0, maximumValue:4.0, initialValue:0.0),
+        sliderConfiguration:.enabled(minimumValue:-1.0, maximumValue:4.0, initialValue:0.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.sharpness = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageUnsharpMaskFilter>(
         listName:"Unsharp mask",
         titleName:"Unsharp Mask",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:5.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:5.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.intensity = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageTransformFilter>(
         listName:"Transform (2-D)",
         titleName:"Transform (2-D)",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:6.28, initialValue:0.75),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:6.28, initialValue:0.75),
         sliderUpdateCallback:{(filter, sliderValue) in
-            filter.affineTransform = CGAffineTransformMakeRotation(sliderValue)
+            filter.affineTransform = CGAffineTransform(rotationAngle: sliderValue)
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageTransformFilter>(
         listName:"Transform (3-D)",
         titleName:"Transform (3-D)",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:6.28, initialValue:0.75),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:6.28, initialValue:0.75),
         sliderUpdateCallback:{(filter, sliderValue) in
             var perspectiveTransform = CATransform3DIdentity
             perspectiveTransform.m34 = 0.4
@@ -144,23 +162,23 @@ let filterOperations: Array<FilterOperationInterface> = [
             perspectiveTransform = CATransform3DRotate(perspectiveTransform, sliderValue, 0.0, 1.0, 0.0)
             filter.transform3D = perspectiveTransform
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageCropFilter>(
         listName:"Crop",
         titleName:"Crop",
-        sliderConfiguration:.Enabled(minimumValue:0.2, maximumValue:1.0, initialValue:0.25),
+        sliderConfiguration:.enabled(minimumValue:0.2, maximumValue:1.0, initialValue:0.25),
         sliderUpdateCallback:{(filter, sliderValue) in
-            filter.cropRegion = CGRectMake(0.0, 0.0, 1.0, sliderValue)
+            filter.cropRegion = CGRect(x: 0.0, y: 0.0, width: 1.0, height: sliderValue)
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageMaskFilter>(
         listName:"Mask",
         titleName:"Mask",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageMaskFilter()
 #if os(iOS)
             let inputImage = UIImage(named:"mask.png")
@@ -169,8 +187,8 @@ let filterOperations: Array<FilterOperationInterface> = [
 #endif
             let inputPicture = GPUImagePicture(image:inputImage)
             camera.addTarget(filter)
-            inputPicture.addTarget(filter)
-            inputPicture.processImage()
+            inputPicture?.addTarget(filter)
+            inputPicture?.processImage()
             filter.addTarget(outputView)
             filter.setBackgroundColorRed(0.0, green:1.0, blue:0.0, alpha:1.0)
             return (filter, inputPicture)
@@ -179,102 +197,102 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageGammaFilter>(
         listName:"Gamma",
         titleName:"Gamma",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:3.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:3.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.gamma = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageToneCurveFilter>(
         listName:"Tone curve",
         titleName:"Tone Curve",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
 #if os(iOS)
-            filter.blueControlPoints = ([NSValue(CGPoint:CGPointMake(0.0, 0.0)), NSValue(CGPoint:CGPointMake(0.5, sliderValue)), NSValue(CGPoint:CGPointMake(1.0, 0.75))])
+    filter.blueControlPoints = ([NSValue(cgPoint:CGPoint(x: 0.0, y: 0.0)), NSValue(cgPoint:CGPoint(x: 0.5, y: sliderValue)), NSValue(cgPoint: CGPoint(x: 1.0, y: 0.75))])
 #else
             filter.blueControlPoints = ([NSValue(point:NSMakePoint(0.0, 0.0)), NSValue(point:NSMakePoint(0.5, sliderValue)), NSValue(point:NSMakePoint(1.0, 0.75))])
 #endif
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageHighlightShadowFilter>(
         listName:"Highlights and shadows",
         titleName:"Highlights and Shadows",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.highlights = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageHazeFilter>(
         listName:"Haze / UV",
         titleName:"Haze / UV",
-        sliderConfiguration:.Enabled(minimumValue:-0.2, maximumValue:0.2, initialValue:0.2),
+        sliderConfiguration:.enabled(minimumValue:-0.2, maximumValue:0.2, initialValue:0.2),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.distance = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageSepiaFilter>(
         listName:"Sepia tone",
         titleName:"Sepia Tone",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.intensity = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageAmatorkaFilter>(
         listName:"Amatorka (Lookup)",
         titleName:"Amatorka (Lookup)",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageMissEtikateFilter>(
         listName:"Miss Etikate (Lookup)",
         titleName:"Miss Etikate (Lookup)",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageSoftEleganceFilter>(
         listName:"Soft elegance (Lookup)",
         titleName:"Soft Elegance (Lookup)",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageColorInvertFilter>(
         listName:"Color invert",
         titleName:"Color Invert",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageGrayscaleFilter>(
         listName:"Grayscale",
         titleName:"Grayscale",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageHistogramFilter>(
         listName:"Histogram",
         titleName:"Histogram",
-        sliderConfiguration:.Enabled(minimumValue:4.0, maximumValue:32.0, initialValue:16.0),
+        sliderConfiguration:.enabled(minimumValue:4.0, maximumValue:32.0, initialValue:16.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.downsamplingFactor = UInt(round(sliderValue))
         },
-        filterOperationType:.Custom(filterSetupFunction: {(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction: {(camera, outputView) in
             let filter = GPUImageHistogramFilter()
             let gammaFilter = GPUImageGammaFilter()
             let histogramGraph = GPUImageHistogramGenerator()
-            histogramGraph.forceProcessingAtSize(CGSizeMake(256.0, 330.0))
+            histogramGraph.forceProcessing(at: CGSize(width: 256.0, height: 330.0))
             let blendFilter = GPUImageAlphaBlendFilter()
             blendFilter.mix = 0.75
-            blendFilter.forceProcessingAtSize(CGSizeMake(256.0, 330.0))
+            blendFilter.forceProcessing(at: CGSize(width: 256.0, height: 330.0))
 
             camera.addTarget(gammaFilter)
             gammaFilter.addTarget(filter)
@@ -288,12 +306,12 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageAverageColor>(
         listName:"Average color",
         titleName:"Average Color",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageAverageColor()
             let colorGenerator = GPUImageSolidColorGenerator()
-            colorGenerator.forceProcessingAtSize(outputView.sizeInPixels)
+            colorGenerator.forceProcessing(at: outputView.sizeInPixels)
             
             filter.colorAverageProcessingFinishedBlock = {(redComponent, greenComponent, blueComponent, alphaComponent, frameTime) in
                 colorGenerator.setColorRed(redComponent, green:greenComponent, blue:blueComponent, alpha:alphaComponent)
@@ -308,12 +326,12 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageLuminosity>(
         listName:"Average luminosity",
         titleName:"Average Luminosity",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageLuminosity()
             let colorGenerator = GPUImageSolidColorGenerator()
-            colorGenerator.forceProcessingAtSize(outputView.sizeInPixels)
+            colorGenerator.forceProcessing(at: outputView.sizeInPixels)
             
             filter.luminosityProcessingFinishedBlock = {(luminosity, frameTime) in
                 colorGenerator.setColorRed(luminosity, green:luminosity, blue:luminosity, alpha:luminosity)
@@ -328,158 +346,158 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageLuminanceThresholdFilter>(
         listName:"Luminance threshold",
         titleName:"Luminance Threshold",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.threshold = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageAdaptiveThresholdFilter>(
         listName:"Adaptive threshold",
         titleName:"Adaptive Threshold",
-        sliderConfiguration:.Enabled(minimumValue:1.0, maximumValue:20.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:1.0, maximumValue:20.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurRadiusInPixels = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageAverageLuminanceThresholdFilter>(
         listName:"Average luminance threshold",
         titleName:"Avg. Lum. Threshold",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.thresholdMultiplier = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageSolarizeFilter>(
         listName:"Solarize",
         titleName:"Solarize",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.threshold = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImagePixellateFilter>(
         listName:"Pixellate",
         titleName:"Pixellate",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:0.3, initialValue:0.05),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:0.3, initialValue:0.05),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.fractionalWidthOfAPixel = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImagePolarPixellateFilter>(
         listName:"Polar pixellate",
         titleName:"Polar Pixellate",
-        sliderConfiguration:.Enabled(minimumValue:-0.1, maximumValue:0.1, initialValue:0.05),
+        sliderConfiguration:.enabled(minimumValue:-0.1, maximumValue:0.1, initialValue:0.05),
         sliderUpdateCallback: {(filter, sliderValue) in
-            filter.pixelSize = CGSizeMake(sliderValue, sliderValue)
+            filter.pixelSize = CGSize(width: sliderValue, height: sliderValue)
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImagePixellatePositionFilter>(
         listName:"Pixellate (position)",
         titleName:"Pixellate (position)",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:0.5, initialValue:0.25),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:0.5, initialValue:0.25),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.radius = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImagePolkaDotFilter>(
         listName:"Polka dot",
         titleName:"Polka Dot",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:0.3, initialValue:0.05),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:0.3, initialValue:0.05),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.fractionalWidthOfAPixel = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageHalftoneFilter>(
         listName:"Halftone",
         titleName:"Halftone",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:0.05, initialValue:0.01),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:0.05, initialValue:0.01),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.fractionalWidthOfAPixel = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageCrosshatchFilter>(
         listName:"Crosshatch",
         titleName:"Crosshatch",
-        sliderConfiguration:.Enabled(minimumValue:0.01, maximumValue:0.06, initialValue:0.03),
+        sliderConfiguration:.enabled(minimumValue:0.01, maximumValue:0.06, initialValue:0.03),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.crossHatchSpacing = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageSobelEdgeDetectionFilter>(
         listName:"Sobel edge detection",
         titleName:"Sobel Edge Detection",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.25),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.25),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.edgeStrength = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImagePrewittEdgeDetectionFilter>(
         listName:"Prewitt edge detection",
         titleName:"Prewitt Edge Detection",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.edgeStrength = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageCannyEdgeDetectionFilter>(
         listName:"Canny edge detection",
         titleName:"Canny Edge Detection",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurTexelSpacingMultiplier = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageThresholdEdgeDetectionFilter>(
         listName:"Threshold edge detection",
         titleName:"Threshold Edge Detection",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.25),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.25),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.threshold = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageXYDerivativeFilter>(
         listName:"XY derivative",
         titleName:"XY Derivative",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageHarrisCornerDetectionFilter>(
         listName:"Harris corner detector",
         titleName:"Harris Corner Detector",
-        sliderConfiguration:.Enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.20),
+        sliderConfiguration:.enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.20),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.threshold = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageHarrisCornerDetectionFilter()
             
             let crosshairGenerator = GPUImageCrosshairGenerator()
             crosshairGenerator.crosshairWidth = 15.0
-            crosshairGenerator.forceProcessingAtSize(outputView.sizeInPixels)
+            crosshairGenerator.forceProcessing(at: outputView.sizeInPixels)
             
-            filter.cornersDetectedBlock = { (cornerArray:UnsafeMutablePointer<GLfloat>, cornersDetected:UInt, frameTime:CMTime) in
-                crosshairGenerator.renderCrosshairsFromArray(cornerArray, count:cornersDetected, frameTime:frameTime)
+            filter.cornersDetectedBlock = { (cornerArray:UnsafeMutablePointer<GLfloat>?, cornersDetected:UInt, frameTime:CMTime) in
+                crosshairGenerator.renderCrosshairs(fromArray: cornerArray, count:cornersDetected, frameTime:frameTime)
             }
             
             camera.addTarget(filter)
             
             let blendFilter = GPUImageAlphaBlendFilter()
-            blendFilter.forceProcessingAtSize(outputView.sizeInPixels)
+            blendFilter.forceProcessing(at: outputView.sizeInPixels)
             let gammaFilter = GPUImageGammaFilter()
             camera.addTarget(gammaFilter)
             gammaFilter.addTarget(blendFilter)
@@ -493,25 +511,25 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageNobleCornerDetectionFilter>(
         listName:"Noble corner detector",
         titleName:"Noble Corner Detector",
-        sliderConfiguration:.Enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.20),
+        sliderConfiguration:.enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.20),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.threshold = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageNobleCornerDetectionFilter()
             
             let crosshairGenerator = GPUImageCrosshairGenerator()
             crosshairGenerator.crosshairWidth = 15.0
-            crosshairGenerator.forceProcessingAtSize(outputView.sizeInPixels)
+            crosshairGenerator.forceProcessing(at: outputView.sizeInPixels)
             
-            filter.cornersDetectedBlock = { (cornerArray:UnsafeMutablePointer<GLfloat>, cornersDetected:UInt, frameTime:CMTime) in
-                crosshairGenerator.renderCrosshairsFromArray(cornerArray, count:cornersDetected, frameTime:frameTime)
+            filter.cornersDetectedBlock = { (cornerArray:UnsafeMutablePointer<GLfloat>?, cornersDetected:UInt, frameTime:CMTime) in
+                crosshairGenerator.renderCrosshairs(fromArray: cornerArray, count:cornersDetected, frameTime:frameTime)
             }
             
             camera.addTarget(filter)
             
             let blendFilter = GPUImageAlphaBlendFilter()
-            blendFilter.forceProcessingAtSize(outputView.sizeInPixels)
+            blendFilter.forceProcessing(at: outputView.sizeInPixels)
             let gammaFilter = GPUImageGammaFilter()
             camera.addTarget(gammaFilter)
             gammaFilter.addTarget(blendFilter)
@@ -525,25 +543,25 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageShiTomasiFeatureDetectionFilter>(
         listName:"Shi-Tomasi feature detection",
         titleName:"Shi-Tomasi Feature Detection",
-        sliderConfiguration:.Enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.20),
+        sliderConfiguration:.enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.20),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.threshold = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageShiTomasiFeatureDetectionFilter()
             
             let crosshairGenerator = GPUImageCrosshairGenerator()
             crosshairGenerator.crosshairWidth = 15.0
-            crosshairGenerator.forceProcessingAtSize(outputView.sizeInPixels)
+            crosshairGenerator.forceProcessing(at: outputView.sizeInPixels)
             
-            filter.cornersDetectedBlock = { (cornerArray:UnsafeMutablePointer<GLfloat>, cornersDetected:UInt, frameTime:CMTime) in
-                crosshairGenerator.renderCrosshairsFromArray(cornerArray, count:cornersDetected, frameTime:frameTime)
+            filter.cornersDetectedBlock = { (cornerArray:UnsafeMutablePointer<GLfloat>?, cornersDetected:UInt, frameTime:CMTime) in
+                crosshairGenerator.renderCrosshairs(fromArray: cornerArray, count:cornersDetected, frameTime:frameTime)
             }
             
             camera.addTarget(filter)
             
             let blendFilter = GPUImageAlphaBlendFilter()
-            blendFilter.forceProcessingAtSize(outputView.sizeInPixels)
+            blendFilter.forceProcessing(at: outputView.sizeInPixels)
             let gammaFilter = GPUImageGammaFilter()
             camera.addTarget(gammaFilter)
             gammaFilter.addTarget(blendFilter)
@@ -557,26 +575,26 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageHoughTransformLineDetector>(
         listName:"Hough transform line detection",
         titleName:"Hough Transform Line Detection",
-        sliderConfiguration:.Enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.60),
+        sliderConfiguration:.enabled(minimumValue:0.01, maximumValue:0.70, initialValue:0.60),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.lineDetectionThreshold = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageHoughTransformLineDetector()
             
             let lineGenerator = GPUImageLineGenerator()
             
-            lineGenerator.forceProcessingAtSize(outputView.sizeInPixels)
+            lineGenerator.forceProcessing(at: outputView.sizeInPixels)
             lineGenerator.setLineColorRed(1.0, green:0.0, blue:0.0)
             
-            filter.linesDetectedBlock = { (lineArray:UnsafeMutablePointer<GLfloat>, linesDetected:UInt, frameTime:CMTime) in
-                lineGenerator.renderLinesFromArray(lineArray, count:linesDetected, frameTime:frameTime)
+            filter.linesDetectedBlock = { (lineArray, linesDetected, frameTime) in
+                lineGenerator.renderLines(fromArray: lineArray, count:linesDetected, frameTime:frameTime)
             }
             
             camera.addTarget(filter)
             
             let blendFilter = GPUImageAlphaBlendFilter()
-            blendFilter.forceProcessingAtSize(outputView.sizeInPixels)
+            blendFilter.forceProcessing(at: outputView.sizeInPixels)
             let gammaFilter = GPUImageGammaFilter()
             camera.addTarget(gammaFilter)
             gammaFilter.addTarget(blendFilter)
@@ -590,16 +608,16 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageColourFASTFeatureDetector>(
         listName:"ColourFAST feature detector",
         titleName:"ColourFAST Feature Detector",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageBuffer>(
         listName:"Buffer",
         titleName:"Buffer",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageBuffer()
             let blendFilter = GPUImageDifferenceBlendFilter()
             let gammaFilter = GPUImageGammaFilter()
@@ -615,20 +633,20 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageLowPassFilter>(
         listName:"Low pass",
         titleName:"Low Pass",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.filterStrength = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageHighPassFilter>(
         listName:"High pass",
         titleName:"High Pass",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.filterStrength = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
 
 //    GPUIMAGE_MOTIONDETECTOR,
@@ -636,69 +654,69 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageSketchFilter>(
         listName:"Sketch",
         titleName:"Sketch",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.edgeStrength = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageThresholdSketchFilter>(
         listName:"Threshold Sketch",
         titleName:"Threshold Sketch",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.25),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.25),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.threshold = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageToonFilter>(
         listName:"Toon",
         titleName:"Toon",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageSmoothToonFilter>(
         listName:"Smooth toon",
         titleName:"Smooth Toon",
-        sliderConfiguration:.Enabled(minimumValue:1.0, maximumValue:6.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:1.0, maximumValue:6.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurRadiusInPixels = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageTiltShiftFilter>(
         listName:"Tilt shift",
         titleName:"Tilt Shift",
-        sliderConfiguration:.Enabled(minimumValue:0.2, maximumValue:0.8, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.2, maximumValue:0.8, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.topFocusLevel = sliderValue - 0.1
             filter.bottomFocusLevel = sliderValue + 0.1
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageCGAColorspaceFilter>(
         listName:"CGA colorspace",
         titleName:"CGA Colorspace",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImagePosterizeFilter>(
         listName:"Posterize",
         titleName:"Posterize",
-        sliderConfiguration:.Enabled(minimumValue:1.0, maximumValue:20.0, initialValue:10.0),
+        sliderConfiguration:.enabled(minimumValue:1.0, maximumValue:20.0, initialValue:10.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.colorLevels = UInt(round(sliderValue))
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImage3x3ConvolutionFilter>(
         listName:"3x3 convolution",
         titleName:"3x3 Convolution",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImage3x3ConvolutionFilter()
             camera.addTarget(filter)
             filter.addTarget(outputView)
@@ -712,27 +730,27 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageEmbossFilter>(
         listName:"Emboss",
         titleName:"Emboss",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:5.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:5.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.intensity = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageLaplacianFilter>(
         listName:"Laplacian",
         titleName:"Laplacian",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageChromaKeyFilter>(
         listName:"Chroma key",
         titleName:"Chroma Key",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.00, initialValue:0.40),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.00, initialValue:0.40),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.thresholdSensitivity = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageChromaKeyFilter()
             
             let blendFilter = GPUImageAlphaBlendFilter()
@@ -746,8 +764,8 @@ let filterOperations: Array<FilterOperationInterface> = [
             let blendImage = GPUImagePicture(image: inputImage)
 
             camera.addTarget(filter)
-            blendImage.addTarget(blendFilter)
-            blendImage.processImage()
+            blendImage?.addTarget(blendFilter)
+            blendImage?.processImage()
             filter.addTarget(blendFilter)
             blendFilter.addTarget(outputView)
             return (filter, blendImage)
@@ -756,97 +774,97 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageKuwaharaFilter>(
         listName:"Kuwahara",
         titleName:"Kuwahara",
-        sliderConfiguration:.Enabled(minimumValue:3.0, maximumValue:8.0, initialValue:3.0),
+        sliderConfiguration:.enabled(minimumValue:3.0, maximumValue:8.0, initialValue:3.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.radius = UInt(round(sliderValue))
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageKuwaharaRadius3Filter>(
         listName:"Kuwahara (radius 3)",
         titleName:"Kuwahara (Radius 3)",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageVignetteFilter>(
         listName:"Vignette",
         titleName:"Vignette",
-        sliderConfiguration:.Enabled(minimumValue:0.5, maximumValue:0.9, initialValue:0.75),
+        sliderConfiguration:.enabled(minimumValue:0.5, maximumValue:0.9, initialValue:0.75),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.vignetteEnd = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageGaussianBlurFilter>(
         listName:"Gaussian blur",
         titleName:"Gaussian Blur",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:24.0, initialValue:2.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:24.0, initialValue:2.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurRadiusInPixels = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageGaussianSelectiveBlurFilter>(
         listName:"Selective Gaussian blur",
         titleName:"Selective Blur",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:0.75, initialValue:40.0/320.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:0.75, initialValue:40.0/320.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.excludeCircleRadius = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageGaussianBlurPositionFilter>(
         listName:"Positional Gaussian blur",
         titleName:"Circular Blur",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:0.75, initialValue:40.0/320.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:0.75, initialValue:40.0/320.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurRadius = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageBoxBlurFilter>(
         listName:"Box blur",
         titleName:"Box Blur",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:24.0, initialValue:2.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:24.0, initialValue:2.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurRadiusInPixels = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageMedianFilter>(
         listName:"Median",
         titleName:"Median",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageBilateralFilter>(
         listName:"Bilateral blur",
         titleName:"Bilateral Blur",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:10.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:10.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.distanceNormalizationFactor = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageMotionBlurFilter>(
         listName:"Motion blur",
         titleName:"Motion Blur",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:180.0, initialValue:0.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:180.0, initialValue:0.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurAngle = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageZoomBlurFilter>(
         listName:"Zoom blur",
         titleName:"Zoom Blur",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:2.5, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:2.5, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.blurSize = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
 
 //    GPUIMAGE_IOSBLUR,
@@ -854,39 +872,39 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageSwirlFilter>(
         listName:"Swirl",
         titleName:"Swirl",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:2.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.angle = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageBulgeDistortionFilter>(
         listName:"Bulge",
         titleName:"Bulge",
-        sliderConfiguration:.Enabled(minimumValue:-1.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:-1.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
 //            filter.scale = sliderValue
             filter.center = CGPoint(x:0.5, y:sliderValue)
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImagePinchDistortionFilter>(
         listName:"Pinch",
         titleName:"Pinch",
-        sliderConfiguration:.Enabled(minimumValue:-2.0, maximumValue:2.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:-2.0, maximumValue:2.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.scale = sliderValue
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageSphereRefractionFilter>(
         listName:"Sphere refraction",
         titleName:"Sphere Refraction",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
         sliderUpdateCallback:{(filter, sliderValue) in
             filter.radius = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageSphereRefractionFilter()
             camera.addTarget(filter)
             
@@ -908,11 +926,11 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageGlassSphereFilter>(
         listName:"Glass sphere",
         titleName:"Glass Sphere",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
         sliderUpdateCallback:{(filter, sliderValue) in
             filter.radius = sliderValue
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageGlassSphereFilter()
             camera.addTarget(filter)
             
@@ -934,46 +952,46 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageStretchDistortionFilter>(
         listName:"Stretch",
         titleName:"Stretch",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageRGBDilationFilter>(
         listName:"Dilation",
         titleName:"Dilation",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageRGBErosionFilter>(
         listName:"Erosion",
         titleName:"Erosion",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageRGBOpeningFilter>(
         listName:"Opening",
         titleName:"Opening",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageRGBClosingFilter>(
         listName:"Closing",
         titleName:"Closing",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
 
 //    GPUIMAGE_PERLINNOISE,
     FilterOperation <GPUImageJFAVoronoiFilter>(
         listName:"Voronoi",
         titleName:"Voronoi",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Custom(filterSetupFunction: {(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction: {(camera, outputView) in
             let filter = GPUImageJFAVoronoiFilter()
             let consumerFilter = GPUImageVoronoiConsumerFilter()
 #if os(iOS)
@@ -983,13 +1001,13 @@ let filterOperations: Array<FilterOperationInterface> = [
 #endif
             let voronoiPointImage = GPUImagePicture(image:voronoiPoints)
 
-            filter.sizeInPixels = CGSizeMake(1024.0, 1024.0)
-            consumerFilter.sizeInPixels = CGSizeMake(1024.0, 1024.0)
+            filter.sizeInPixels = CGSize(width: 1024.0, height: 1024.0)
+            consumerFilter.sizeInPixels = CGSize(width: 1024.0, height: 1024.0)
             
-            voronoiPointImage.addTarget(filter)
+            voronoiPointImage?.addTarget(filter)
             camera.addTarget(consumerFilter)
             filter.addTarget(consumerFilter)
-            voronoiPointImage.processImage()
+            voronoiPointImage?.processImage()
             
             consumerFilter.addTarget(outputView)
             return (filter, voronoiPointImage)
@@ -998,11 +1016,11 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageMosaicFilter>(
         listName:"Mosaic",
         titleName:"Mosaic",
-        sliderConfiguration:.Enabled(minimumValue:0.002, maximumValue:0.05, initialValue:0.025),
+        sliderConfiguration:.enabled(minimumValue:0.002, maximumValue:0.05, initialValue:0.025),
         sliderUpdateCallback:{(filter, sliderValue) in
-            filter.displayTileSize = CGSizeMake(sliderValue, sliderValue)
+            filter.displayTileSize = CGSize(width: sliderValue, height: sliderValue)
         },
-        filterOperationType:.Custom(filterSetupFunction:{(camera, outputView) in
+        filterOperationType:.custom(filterSetupFunction:{(camera, outputView) in
             let filter = GPUImageMosaicFilter()
             camera.addTarget(filter)
             
@@ -1017,189 +1035,189 @@ let filterOperations: Array<FilterOperationInterface> = [
     FilterOperation <GPUImageLocalBinaryPatternFilter>(
         listName:"Local binary pattern",
         titleName:"Local Binary Pattern",
-        sliderConfiguration:.Enabled(minimumValue:1.0, maximumValue:5.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:1.0, maximumValue:5.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             let filterSize = filter.outputFrameSize()
             filter.texelWidth = (sliderValue / filterSize.width)
             filter.texelHeight = (sliderValue / filterSize.height)
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageColorLocalBinaryPatternFilter>(
         listName:"Local binary pattern (color)",
         titleName:"Local Binary Pattern (color)",
-        sliderConfiguration:.Enabled(minimumValue:1.0, maximumValue:5.0, initialValue:1.0),
+        sliderConfiguration:.enabled(minimumValue:1.0, maximumValue:5.0, initialValue:1.0),
         sliderUpdateCallback: {(filter, sliderValue) in
             let filterSize = filter.outputFrameSize()
             filter.texelWidth = (sliderValue / filterSize.width)
             filter.texelHeight = (sliderValue / filterSize.height)
         },
-        filterOperationType:.SingleInput
+        filterOperationType:.singleInput
     ),
     FilterOperation <GPUImageDissolveBlendFilter>(
         listName:"Dissolve blend",
         titleName:"Dissolve Blend",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.5),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.mix = sliderValue
         },
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageChromaKeyBlendFilter>(
         listName:"Chroma key blend (green)",
         titleName:"Chroma Key (Green)",
-        sliderConfiguration:.Enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.4),
+        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.4),
         sliderUpdateCallback: {(filter, sliderValue) in
             filter.thresholdSensitivity = sliderValue
         },
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageAddBlendFilter>(
         listName:"Add blend",
         titleName:"Add Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageDivideBlendFilter>(
         listName:"Divide blend",
         titleName:"Divide Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageMultiplyBlendFilter>(
         listName:"Multiply blend",
         titleName:"Multiply Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageOverlayBlendFilter>(
         listName:"Overlay blend",
         titleName:"Overlay Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageLightenBlendFilter>(
         listName:"Lighten blend",
         titleName:"Lighten Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageDarkenBlendFilter>(
         listName:"Darken blend",
         titleName:"Darken Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageColorBurnBlendFilter>(
         listName:"Color burn blend",
         titleName:"Color Burn Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageColorDodgeBlendFilter>(
         listName:"Color dodge blend",
         titleName:"Color Dodge Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageLinearBurnBlendFilter>(
         listName:"Linear burn blend",
         titleName:"Linear Burn Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback: nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageScreenBlendFilter>(
         listName:"Screen blend",
         titleName:"Screen Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageDifferenceBlendFilter>(
         listName:"Difference blend",
         titleName:"Difference Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageSubtractBlendFilter>(
         listName:"Subtract blend",
         titleName:"Subtract Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageExclusionBlendFilter>(
         listName:"Exclusion blend",
         titleName:"Exclusion Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageHardLightBlendFilter>(
         listName:"Hard light blend",
         titleName:"Hard Light Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageSoftLightBlendFilter>(
         listName:"Soft light blend",
         titleName:"Soft Light Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageColorBlendFilter>(
         listName:"Color blend",
         titleName:"Color Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageHueBlendFilter>(
         listName:"Hue blend",
         titleName:"Hue Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageSaturationBlendFilter>(
         listName:"Saturation blend",
         titleName:"Saturation Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageLuminosityBlendFilter>(
         listName:"Luminosity blend",
         titleName:"Luminosity Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImageNormalBlendFilter>(
         listName:"Normal blend",
         titleName:"Normal Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
     FilterOperation <GPUImagePoissonBlendFilter>(
         listName:"Poisson blend",
         titleName:"Poisson Blend",
-        sliderConfiguration:.Disabled,
+        sliderConfiguration:.disabled,
         sliderUpdateCallback:nil,
-        filterOperationType:.Blend
+        filterOperationType:.blend
     ),
 
 //    GPUIMAGE_OPACITY,
