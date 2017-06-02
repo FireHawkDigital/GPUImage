@@ -1,4 +1,5 @@
 #import "GPUImageToneCurveFilter.h"
+#import <UIKit/UIKit.h>
 
 #pragma mark -
 #pragma mark GPUImageACVFile Helper
@@ -16,14 +17,13 @@
     NSArray *redCurvePoints;
     NSArray *greenCurvePoints;    
     NSArray *blueCurvePoints;
-    CGFloat mix;
 }
 
 @property(strong,nonatomic) NSArray *rgbCompositeCurvePoints;
 @property(strong,nonatomic) NSArray *redCurvePoints;
 @property(strong,nonatomic) NSArray *greenCurvePoints;    
 @property(strong,nonatomic) NSArray *blueCurvePoints;
-@property(strong,nonatomic) CGFloat mix;
+
 
 - (id) initWithACVFileData:(NSData*)data;
 
@@ -33,7 +33,7 @@ unsigned short int16WithBytes(Byte* bytes);
 
 @implementation GPUImageACVFile
 
-@synthesize rgbCompositeCurvePoints, redCurvePoints, greenCurvePoints, blueCurvePoints, mix;
+@synthesize rgbCompositeCurvePoints, redCurvePoints, greenCurvePoints, blueCurvePoints;
 
 - (id) initWithACVFileData:(NSData *)data {
     self = [super init];
@@ -158,7 +158,7 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
 @synthesize redControlPoints = _redControlPoints;
 @synthesize greenControlPoints = _greenControlPoints;
 @synthesize blueControlPoints = _blueControlPoints;
-@synthesize mix = _mix;
+@synthesize mix;
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -619,11 +619,11 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
     [self updateToneCurveTexture];
 }
 
-- (void)setMix:(CGFloat)mix
+- (void)setMix:(CGFloat)newValue
 {
-    _mix = mix;
+    self.mix = newValue;
     
-    [self setFloat:_mix forUniform:mixUniform program:filterProgram];
+    [self setFloat:self.mix forUniform:mixUniform program:filterProgram];
 }
 
 - (void)setBlueControlPoints:(NSArray *)newValue

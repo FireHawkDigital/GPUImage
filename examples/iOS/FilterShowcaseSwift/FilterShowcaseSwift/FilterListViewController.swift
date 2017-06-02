@@ -9,6 +9,7 @@ class FilterListViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
+            
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let filterInList = filterOperations[indexPath.row]
                 (segue.destination as! FilterDisplayViewController).filterOperation = filterInList

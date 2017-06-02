@@ -1,15 +1,19 @@
 #import "GPUImageFilter.h"
+#import <UIKit/UIKit.h>
 
-@interface GPUImageToneCurveFilter : GPUImageFilter
-{
-    CGFloat _mix;
+@interface GPUImageToneCurveFilter : GPUImageFilter {
+    @public
+    CGFloat mix;
 }
 
 @property(readwrite, nonatomic, copy) NSArray *redControlPoints;
 @property(readwrite, nonatomic, copy) NSArray *greenControlPoints;
 @property(readwrite, nonatomic, copy) NSArray *blueControlPoints;
 @property(readwrite, nonatomic, copy) NSArray *rgbCompositeControlPoints;
+
+
 @property(readwrite, nonatomic) CGFloat mix;
+
 
 // Initialization and teardown
 - (id)initWithACVData:(NSData*)data;
@@ -24,6 +28,7 @@
 
 - (void)setPointsWithACV:(NSString*)curveFilename;
 - (void)setPointsWithACVURL:(NSURL*)curveFileURL;
+- (void)setMix:(CGFloat)mix;
 
 // Curve calculation
 - (NSMutableArray *)getPreparedSplineCurve:(NSArray *)points;
