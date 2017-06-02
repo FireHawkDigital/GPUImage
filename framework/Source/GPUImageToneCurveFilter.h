@@ -1,6 +1,9 @@
 #import "GPUImageFilter.h"
 
 @interface GPUImageToneCurveFilter : GPUImageFilter
+{
+    CGFloat _mix;
+}
 
 @property(readwrite, nonatomic, copy) NSArray *redControlPoints;
 @property(readwrite, nonatomic, copy) NSArray *greenControlPoints;

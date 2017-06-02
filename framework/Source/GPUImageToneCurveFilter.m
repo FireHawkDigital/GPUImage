@@ -16,12 +16,14 @@
     NSArray *redCurvePoints;
     NSArray *greenCurvePoints;    
     NSArray *blueCurvePoints;
+    CGFloat mix;
 }
 
 @property(strong,nonatomic) NSArray *rgbCompositeCurvePoints;
 @property(strong,nonatomic) NSArray *redCurvePoints;
 @property(strong,nonatomic) NSArray *greenCurvePoints;    
 @property(strong,nonatomic) NSArray *blueCurvePoints;
+@property(strong,nonatomic) CGFloat mix;
 
 - (id) initWithACVFileData:(NSData*)data;
 
@@ -31,7 +33,7 @@ unsigned short int16WithBytes(Byte* bytes);
 
 @implementation GPUImageACVFile
 
-@synthesize rgbCompositeCurvePoints, redCurvePoints, greenCurvePoints, blueCurvePoints;
+@synthesize rgbCompositeCurvePoints, redCurvePoints, greenCurvePoints, blueCurvePoints, mix;
 
 - (id) initWithACVFileData:(NSData *)data {
     self = [super init];
