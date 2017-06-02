@@ -235,13 +235,6 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
     curve = nil;
 }
 
-- (void)setMix:(CGFloat)newValue;
-{
-    _mix = newValue;
-    
-    [self setFloat:_mix forUniform:mixUniform program:filterProgram];
-}
-
 - (void)dealloc
 {
     runSynchronouslyOnVideoProcessingQueue(^{
@@ -624,6 +617,12 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
     [self updateToneCurveTexture];
 }
 
+- (void)setMix:(CGFloat)mix
+{
+    _mix = mix;
+    
+    [self setFloat:_mix forUniform:mixUniform program:filterProgram];
+}
 
 - (void)setBlueControlPoints:(NSArray *)newValue
 {
