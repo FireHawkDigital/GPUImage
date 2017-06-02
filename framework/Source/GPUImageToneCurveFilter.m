@@ -12,7 +12,6 @@
 @interface GPUImageACVFile : NSObject{
     short version;
     short totalCurves;
-    
     NSArray *rgbCompositeCurvePoints;
     NSArray *redCurvePoints;
     NSArray *greenCurvePoints;    
@@ -105,14 +104,17 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
  uniform sampler2D inputImageTexture;
  uniform sampler2D toneCurveTexture;
  
+ uniform float mixturePercent;
  void main()
  {
      lowp vec4 textureColor = texture2D(inputImageTexture, textureCoordinate);
      lowp float redCurveValue = texture2D(toneCurveTexture, vec2(textureColor.r, 0.0)).r;
      lowp float greenCurveValue = texture2D(toneCurveTexture, vec2(textureColor.g, 0.0)).g;
      lowp float blueCurveValue = texture2D(toneCurveTexture, vec2(textureColor.b, 0.0)).b;
+
+     lowp vec4 destColor = vec4(redCurveValue, greenCurveValue, blueCurveValue, textureColor.a);
      
-     gl_FragColor = vec4(redCurveValue, greenCurveValue, blueCurveValue, textureColor.a);
+     gl_FragColor = mix(textureColor, destColor, mixturePercent);
  }
 );
 #else
@@ -129,7 +131,9 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
      float greenCurveValue = texture2D(toneCurveTexture, vec2(textureColor.g, 0.0)).g;
      float blueCurveValue = texture2D(toneCurveTexture, vec2(textureColor.b, 0.0)).b;
      
-     gl_FragColor = vec4(redCurveValue, greenCurveValue, blueCurveValue, textureColor.a);
+     vec4 destColor = vec4(redCurveValue, greenCurveValue, blueCurveValue, textureColor.a);
+     
+     gl_FragColor = mix(textureColor, destColor, mixturePercent);
  }
 );
 #endif
@@ -137,6 +141,7 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
 @interface GPUImageToneCurveFilter()
 {
     GLint toneCurveTextureUniform;
+    GLint mixUniform;
     GLuint toneCurveTexture;
     GLubyte *toneCurveByteArray;
     
@@ -151,6 +156,7 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
 @synthesize redControlPoints = _redControlPoints;
 @synthesize greenControlPoints = _greenControlPoints;
 @synthesize blueControlPoints = _blueControlPoints;
+@synthesize mix = _mix;
 
 #pragma mark -
 #pragma mark Initialization and teardown
@@ -163,6 +169,8 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
     }
     
     toneCurveTextureUniform = [filterProgram uniformIndex:@"toneCurveTexture"];
+    mixUniform = [filterProgram uniformIndex:@"mixturePercent"];
+    self.mix = 1.0;
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
     NSArray *defaultCurve = [NSArray arrayWithObjects:[NSValue valueWithCGPoint:CGPointMake(0.0, 0.0)], [NSValue valueWithCGPoint:CGPointMake(0.5, 0.5)], [NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)], nil];
 #else
@@ -225,6 +233,13 @@ NSString *const kGPUImageToneCurveFragmentShaderString = SHADER_STRING
     [self setBlueControlPoints:curve.blueCurvePoints];
     
     curve = nil;
+}
+
+- (void)setMix:(CGFloat)newValue;
+{
+    _mix = newValue;
+    
+    [self setFloat:_mix forUniform:mixUniform program:filterProgram];
 }
 
 - (void)dealloc

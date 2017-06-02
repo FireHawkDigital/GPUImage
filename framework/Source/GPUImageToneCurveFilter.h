@@ -6,6 +6,7 @@
 @property(readwrite, nonatomic, copy) NSArray *greenControlPoints;
 @property(readwrite, nonatomic, copy) NSArray *blueControlPoints;
 @property(readwrite, nonatomic, copy) NSArray *rgbCompositeControlPoints;
+@property(readwrite, nonatomic) CGFloat mix;
 
 // Initialization and teardown
 - (id)initWithACVData:(NSData*)data;
